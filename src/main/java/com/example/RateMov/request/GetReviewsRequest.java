@@ -5,8 +5,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AddReviewRequest {
-    private Long app_user_id;
+public class GetReviewsRequest {
     private String movie_id;
-    private String comment;
 }

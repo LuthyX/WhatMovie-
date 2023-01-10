@@ -1,8 +1,9 @@
 package com.example.RateMov.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -11,10 +12,10 @@ public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "movie_id", referencedColumnName = "dbid")
-    @JsonIgnore
-    private Movie movie;
+    @Column(name = "movie_id")
+    private String movie_id;
+
+    private LocalDateTime localDateTime;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name= "app_user_id", referencedColumnName = "id")
     private AppUser user;
