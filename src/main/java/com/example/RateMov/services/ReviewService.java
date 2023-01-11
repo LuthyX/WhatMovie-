@@ -9,6 +9,7 @@ import com.example.RateMov.request.AddReviewRequest;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,7 +29,7 @@ public class ReviewService {
         return reviews;
     }
     public void addReview(AddReviewRequest request) throws UserDoesNotExistException {
-        Optional<AppUser> optApp = appUserRepository.findById(request.getApp_user_id());
+        Optional<AppUser> optApp = appUserRepository.findByUsername(request.getUsername());
         if(!optApp.isPresent()){
             throw new UserDoesNotExistException();
         }
@@ -36,7 +37,9 @@ public class ReviewService {
         Review review = new Review();
         review.setUser(appUser);
         review.setComment(request.getComment());
-        review.setLocalDateTime(LocalDateTime.now());
+        DateTimeFormatter customFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");;
+        String formattedString = LocalDateTime.now().format(customFormat);
+        review.setCreated_at(formattedString);
         review.setMovie_id(request.getMovie_id());
         reviewRepository.save(review);
     }

@@ -30,7 +30,7 @@ public class ReviewController {
         response.setReviews(reviews);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
-    @PostMapping("review/add")
+    @PostMapping("/add")
     public ResponseEntity<BaseResponse> addReviews(@RequestBody AddReviewRequest request){
         try {
             reviewService.addReview(request);
